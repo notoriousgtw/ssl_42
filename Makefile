@@ -6,7 +6,7 @@
 #    By: gwood <gwood@42.us.org>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/30 14:30:20 by mhurd             #+#    #+#              #
-#    Updated: 2018/07/24 19:04:09 by gwood            ###   ########.fr        #
+#    Updated: 2018/07/24 20:10:51 by gwood            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,10 @@ SRCDIR	= ./srcs/
 INCDIR	= ./includes/
 OBJDIR	= ./objs/
 
-all: obj libft $(NAME)
+all: git obj libft $(NAME)
 
-gfx:
-	rm -rf $(NAME)
-	rm -rf $(OBJDIR)
-	make
+git:
+	git submodule update --init
 
 obj:
 	mkdir -p $(OBJDIR)
