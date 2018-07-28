@@ -6,19 +6,20 @@
 #    By: gwood <gwood@42.us.org>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/30 14:30:20 by mhurd             #+#    #+#              #
-#    Updated: 2018/07/24 20:10:51 by gwood            ###   ########.fr        #
+#    Updated: 2018/07/27 13:24:06 by gwood            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= ft_ssl_md5
+NAME	= ft_ssl
 
 SRC		= main.c \
-		  md5.c
+		  md5.c \
+		  sha256.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -g
 
 LIBFT	= ./libft/libft.a
 LIBINC	= -I./libft
