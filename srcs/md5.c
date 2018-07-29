@@ -32,7 +32,7 @@ static void	    padding(t_md5 *d, char *message)
     uint64_t	bit_length;
 
     new_length = d->length * 8 + 1;
-    while (new_length % 512 != 448)
+   while (new_length % 512 != 448)
 	{
     	new_length++;
 	}

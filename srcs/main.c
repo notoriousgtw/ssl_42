@@ -11,23 +11,14 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "sha256.h"
+#include "ft_ssl.h"
+#include "stdio.h"
 
-void		display_usage(char *name)
+int			main(int argc, char **argv)
 {
-    ft_putstr("usage: ");
-    ft_putstr(name);
-    ft_putendl(" message");
-}
+	char *digest;
 
-
-int			main(int argc, char *argv[])
-{
-	if (argc == 2)
-	{
-		ft_putstr(ft_sha256(argv[1]));
-	}
-	else
-		display_usage(*argv);
+	digest = ssl_parser(argc, argv);
+	printf("digest: %s\n", digest);
 	return (0);
 }
