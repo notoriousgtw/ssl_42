@@ -13,10 +13,7 @@ void		display_usage(char *name)
 char *ft_read_stdin(void)
 {
     char *stdin_str;
-    int ret;
 
-    ret = 69;
-    
     ft_gnl(1, &stdin_str);
     printf("%s", stdin_str);
     return (stdin_str);
