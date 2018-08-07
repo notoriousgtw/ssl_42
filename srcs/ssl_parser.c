@@ -1,6 +1,6 @@
 #include "ft_ssl.h"
 #include "libft.h"
-#include "gnl.h"
+#include "get_next_line.h"
 #include <stdio.h>
 
 void		display_usage(char *name)
@@ -12,13 +12,15 @@ void		display_usage(char *name)
 
 char *ft_read_stdin(void)
 {
-    char *stdin_str;
+    char *stdin_str[BUFF_SIZE + 1];
     int ret;
 
-    ret = 69;
-    
-    ft_gnl(1, &stdin_str);
-    printf("%s", stdin_str);
+    ret = 1;
+    while(ret > 0)
+    {
+        ret = read(0, stdin_str, BUFF_SIZE);
+        stdin_str[ret] = '\0';
+    }
     return (stdin_str);
 }
 
@@ -26,10 +28,8 @@ char *ssl_parser(int argc, char **argv)
 {
     int i;
     char *input;
-    char *ssl_fnc;
 
     i = 0;
-    ssl_fnc = argv[1];
     if (argc < 2 || argc > 3)
     {
         display_usage("Should try to open from stdin?");
@@ -41,8 +41,7 @@ char *ssl_parser(int argc, char **argv)
         input = argv[2];
     while (i < 2)
     {
-        ssl_fnc = argv[1];
-        if (!(ft_strcmp(g_ft_ssl_program_list[i].type, ssl_fnc)))
+        if (!(ft_strcmp(g_ft_ssl_program_list[i].type, argv[1])))
             return (g_ft_ssl_program_list[i].ssl_fnc(input));
         i++;
     }
