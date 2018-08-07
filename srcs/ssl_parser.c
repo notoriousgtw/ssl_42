@@ -3,6 +3,7 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
+
 void		display_usage(char *name)
 {
     ft_putstr("usage: ");
