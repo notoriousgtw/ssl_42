@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:00:06 by gwood             #+#    #+#             */
-/*   Updated: 2018/07/27 13:13:43 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/07 14:38:18 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define SSIG0(x) (ROTR((x), 7) ^ ROTR((x), 18) ^ (x) >> 3)
 # define SSIG1(x) (ROTR((x), 17) ^ ROTR((x), 19) ^ (x) >> 10)
 
-static const uint32_t g_s256[64] =
+static const uint32_t g_k_s256[64] =
 {
 	0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
 	0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
@@ -48,7 +48,7 @@ static const uint32_t g_s256[64] =
 typedef struct  s_sha256
 {
 	size_t		length;
-	uint8_t		*msg;
+	uint32_t	*msg;
     uint32_t    h0;
     uint32_t    h1;
     uint32_t    h2;
@@ -65,10 +65,8 @@ typedef struct  s_sha256
 	uint32_t 	f;
 	uint32_t 	g;
 	uint32_t 	h;
-	uint32_t 	offset;
-	uint32_t 	*words;
 	uint32_t 	*msgsched;
 }               t_sha256;
 
-char		    *ft_sha256(char *message);
+char		    *ft_sha256(t_byte *message, size_t length);
 #endif
