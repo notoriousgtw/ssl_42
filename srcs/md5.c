@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/07/27 12:51:29 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/07 14:38:09 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_md5	*init(void)
     return (ret);
 }
 
-static void	    padding(t_md5 *d, char *message)
+static void	    padding(t_md5 *d, t_byte *message)
 {
 	size_t		new_length;
     uint64_t	bit_length;
@@ -89,14 +89,14 @@ static void     word_loop(t_md5 *d)
     d->h3 += d->d;
 }
 
-char		    *ft_md5(char *message)
+char		    *ft_md5(t_byte *message, size_t length)
 {
     t_md5 *d;
     char        *digest;
 
     digest = NULL;
     d = init();
-	d->length = ft_strlen(message);
+	d->length = length;
     padding(d, message);
 	while (d->offset < d->length)
         word_loop(d);

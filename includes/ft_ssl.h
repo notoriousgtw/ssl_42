@@ -3,8 +3,15 @@
 
 #include "sha256.h"
 #include "md5.h"
+#define SSL_BUFF_SIZE 16
 
-typedef char  *(*t_ft_ssl_fnc)(char *message);
+typedef char  *(*t_ft_ssl_fnc)(t_byte *message, size_t length);
+
+typedef struct      s_ft_ssl_data
+{
+    char    *input;
+    size_t  input_length;
+}                   t_ft_ssl_data;
 
 typedef struct      s_ft_ssl_prg
 {

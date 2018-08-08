@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:00:06 by gwood             #+#    #+#             */
-/*   Updated: 2018/07/27 12:51:28 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/07 14:38:10 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,5 @@ typedef struct	s_md5
 	uint32_t 	*msched;
 }               t_md5;
 
-char		    *ft_md5(char *message);
+char		    *ft_md5(t_byte *message, size_t length);
 #endif
