@@ -1,7 +1,8 @@
 #include "ft_ssl.h"
 #include "libft.h"
-#include "gnl.h"
+#include "get_next_line.h"
 #include <stdio.h>
+
 
 void		display_usage(char *name)
 {
@@ -10,34 +11,33 @@ void		display_usage(char *name)
     ft_putendl(" message");
 }
 
-void    ft_read_stdin(t_ft_ssl_data *d)
+char    *ft_read_stdin()
 {
     int     check;
-    char    buf[SSL_BUFF_SIZE];
+    char    buf[SSL_BUFF_SIZE + 1];
     char    *stdin_str;
 
-    d->input_length = 0;
     stdin_str = ft_strnew(0);
     while((check = read(0, &buf, SSL_BUFF_SIZE)) > 0)
     {
-        ft_strcat(stdin_str, buf);
-		stdin_str[check] = 0;
-        d->input_length += check;
+		buf[check] = 0;
+        stdin_str = ft_strjoinfree(stdin_str, buf, 1);
+		ft_bzero(buf, BUFF_SIZE + 1);
     }
     if (check < 0)
-        d->input = NULL;
-    d->input = stdin_str;
+        return (NULL);
+    return (stdin_str);
 }
 
 char *ssl_parser(int argc, char **argv)
 {
     int             i;
     char            *ssl_fnc;
-    t_ft_ssl_data   *d;
+    t_ft_ssl_args   *d;
 
     i = 0;
     ssl_fnc = argv[1];
-    if (!(d = (t_ft_ssl_data *)ft_memalloc(sizeof(t_ft_ssl_data))))
+    if (!(d = (t_ft_ssl_args *)ft_memalloc(sizeof(t_ft_ssl_args))))
         return (NULL);
     if (argc < 2 || argc > 3)
     {
@@ -45,7 +45,7 @@ char *ssl_parser(int argc, char **argv)
         return (NULL);
     }
     if (argc == 2)
-        ft_read_stdin(d);
+        d->input = ft_read_stdin(d);
     else
     {
         d->input = ft_strdup(argv[2]);

@@ -7,11 +7,14 @@
 
 typedef char  *(*t_ft_ssl_fnc)(t_byte *message, size_t length);
 
-typedef struct      s_ft_ssl_data
+typedef char *(*t_ft_ssl_args)(t_ssl_args *args);
+
+typedef struct s_ssl_args
 {
-    char    *input;
-    size_t  input_length;
-}                   t_ft_ssl_data;
+    char        *input;
+    char        *stdin_str;
+    char        *flags
+}               t_ssl_args;
 
 typedef struct      s_ft_ssl_prg
 {
@@ -24,11 +27,17 @@ static const t_ft_ssl_prg            g_ft_ssl_program_list[2] = {
     {"sha256", &ft_sha256}
 };
 
-char *ssl_parser(int argc, char **argv);
+static const t_ssl_args           g_ft_ssl_flags =
+{
+    {"p", &ft_ssl_echo_stdout},
+    {"q", &ft_ssl_quiet_mode},
+    {"r", &ft_ssl_rev_fmt},
+    {"s", &ft_ssl_print_sum}
+};
 
-
-
-
-
+char *ft_ssl_echo_stdout(char *input);
+char *ft_ssl_quiet_mode(char *input);
+char *ft_ssl_rev_fmt(char *input);
+char *ft_ssl_print_sum(char *input);
 
 #endif
