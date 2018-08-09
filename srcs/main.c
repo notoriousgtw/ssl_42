@@ -6,13 +6,18 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 21:12:33 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 14:09:28 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 14:28:50 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ssl.h"
 #include "stdio.h"
+
+void			display_usage()
+{
+	ft_putendl("usage: ft_ssl command [command opts] [command args]");
+}
 
 void			parse_args(t_ft_ssl_data *d, int argc, char **argv)
 {
@@ -32,7 +37,7 @@ void			parse_args(t_ft_ssl_data *d, int argc, char **argv)
         else if (!d->s && ft_strcmp("-s", argv[i]) == 0)
 		{
 			if (++i >= argc)
-				ft_error("please provide a string");
+				ft_ssl_error_nostring(d);
 			d->arg_str = argv[i];
             d->s = true;
 			cnt += 2;
@@ -64,13 +69,13 @@ t_ft_ssl_data   *init(char *ssl_prg)
 	ret->inputs = NULL;
 	ret->ssl_prg = NULL;
 	i = 0;
-    while (g_ft_ssl_program_list[i].type != NULL)
+    while (g_ft_ssl_program_list[i].name != NULL)
     {
-        if (!(ft_strcmp(g_ft_ssl_program_list[i].type, ssl_prg)))
+        if (!(ft_strcmp(g_ft_ssl_program_list[i].name, ssl_prg)))
             ret->ssl_prg = &(((t_ft_ssl_prg *)g_ft_ssl_program_list)[i]);
         i++;
     }
-	if (ssl_prg == NULL)
+	if (ret->ssl_prg == NULL)
 		ft_ssl_error_prg(ssl_prg);
 	return (ret);
 }
@@ -95,7 +100,7 @@ int	main(int argc, char **argv)
 	if (argc > 1 && argv[1] != NULL)
 	{
 		if ((d = init(argv[1])) == NULL)
-			ft_error("malloc error");
+			ft_error_unknown();
 		parse_args(d, argc, argv);
 		if ((!d->s && !d->f) || d->p)
 			ft_ssl_read_stdin(d);
@@ -109,4 +114,6 @@ int	main(int argc, char **argv)
 		}
 		ft_lstiter_data(d->inputs, msg_iter, d);
 	}
+	else
+		ft_putendl("usage: ft_ssl command [command opts] [command args]");
 }
