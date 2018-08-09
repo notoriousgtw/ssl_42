@@ -8,12 +8,13 @@
 #define INPUT_STRING 1
 #define INPUT_FILE 2
 
-typedef char    *(*t_ft_ssl_fnc)(t_byte *message, size_t length);
+typedef char    *(*t_ft_ssl_fnc)(t_byte *message, char *digest, size_t length);
 
 typedef struct  s_ft_ssl_prg
 {
     char            *type;
     t_ft_ssl_fnc    ssl_fnc;
+    size_t          digest_len;
 }               t_ft_ssl_prg;
 
 typedef struct  s_ft_ssl_input
@@ -35,17 +36,18 @@ typedef struct  s_ft_ssl_data
     char            *arg_str;
     size_t          arg_ind;
     t_list          *inputs;
-    t_ft_ssl_prg    ssl_prg;
+    t_ft_ssl_prg    *ssl_prg;
 }               t_ft_ssl_data;
 
 static const t_ft_ssl_prg            g_ft_ssl_program_list[3] = {
-    {"md5", &ft_md5},
-    {"sha256", &ft_sha256},
-    {NULL, NULL}
+    {"md5", &ft_md5, 32},
+    {"sha256", &ft_sha256, 64},
+    {NULL, NULL, 0}
 };
 
 void    ft_ssl_read_stdin(t_ft_ssl_data *d);
 void    ft_ssl_read_string(t_ft_ssl_data *d);
 void    ft_ssl_read_file(t_ft_ssl_data *d, char *path);
 void	print_digest(t_ft_ssl_data *d, t_ft_ssl_input *input);
+void    ft_ssl_error_prg(char *prg);
 #endif

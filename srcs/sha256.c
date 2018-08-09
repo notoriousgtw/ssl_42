@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/08 16:51:35 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 13:24:14 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,28 +142,24 @@ static void     chunk_loop(t_sha256 *d, uint32_t i)
     d->h7 += d->h;
 }
 
-char		    *ft_sha256(t_byte *message, size_t length)
+char		    *ft_sha256(t_byte *message, char *digest, size_t length)
 {
     uint32_t i;
     t_sha256    *d;
-    char        *digest;
-
-    // printf("\n\nRunning SHA256 hash function on: '%s'\n\n", (char *)message);
-    digest = ft_strnew(64);
     d = init();
 	d->length = length;
     padding(d, message);
     i = 0;
 	while (i < d->length / 64)
         chunk_loop(d, i++);
-	digest = ft_strjoinfree(digest, ft_uitoa_base(d->h0, 16), 2);
-	digest = ft_strjoinfree(digest, ft_uitoa_base(d->h1, 16), 2);
-	digest = ft_strjoinfree(digest, ft_uitoa_base(d->h2, 16), 2);
-	digest = ft_strjoinfree(digest, ft_uitoa_base(d->h3, 16), 2);
-	digest = ft_strjoinfree(digest, ft_uitoa_base(d->h4, 16), 2);
-	digest = ft_strjoinfree(digest, ft_uitoa_base(d->h5, 16), 2);
-	digest = ft_strjoinfree(digest, ft_uitoa_base(d->h6, 16), 2);
-	digest = ft_strjoinfree(digest, ft_uitoa_base(d->h7, 16), 2);
+	ft_uitoa(d->h0, digest, 16);
+	ft_uitoa(d->h1, digest + 8, 16);
+	ft_uitoa(d->h2, digest + 16, 16);
+	ft_uitoa(d->h3, digest + 24, 16);
+	ft_uitoa(d->h4, digest + 32, 16);
+	ft_uitoa(d->h5, digest + 40, 16);
+	ft_uitoa(d->h6, digest + 48, 16);
+	ft_uitoa(d->h7, digest + 56, 16);
     free(d);
 	return (digest);
 }

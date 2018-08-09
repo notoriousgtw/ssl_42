@@ -6,7 +6,7 @@
 #    By: gwood <gwood@42.us.org>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/30 14:30:20 by mhurd             #+#    #+#              #
-#    Updated: 2018/08/08 18:51:03 by gwood            ###   ########.fr        #
+#    Updated: 2018/08/09 13:25:12 by gwood            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRC		= main.c \
 		  md5.c \
 		  sha256.c \
 		  read.c \
-		  print.c
+		  print.c \
+		  error.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 

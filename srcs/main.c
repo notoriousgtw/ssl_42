@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 21:12:33 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 12:38:42 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 14:09:28 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void			parse_args(t_ft_ssl_data *d, int argc, char **argv)
 		else
 		{
 			d->f = true;
-			// cnt++;
 			break;
 		}
 		i++;
@@ -48,7 +47,7 @@ void			parse_args(t_ft_ssl_data *d, int argc, char **argv)
 	d->arg_ind = 2 + cnt;
 }
 
-t_ft_ssl_data   *init(char *ssl_fnc)
+t_ft_ssl_data   *init(char *ssl_prg)
 {
 	int				i;
     t_ft_ssl_data	*ret;
@@ -63,13 +62,16 @@ t_ft_ssl_data   *init(char *ssl_fnc)
 	ret->arg_str = NULL;
 	ret->arg_ind = 0;
 	ret->inputs = NULL;
+	ret->ssl_prg = NULL;
 	i = 0;
     while (g_ft_ssl_program_list[i].type != NULL)
     {
-        if (!(ft_strcmp(g_ft_ssl_program_list[i].type, ssl_fnc)))
-            ret->ssl_prg = g_ft_ssl_program_list[i];
+        if (!(ft_strcmp(g_ft_ssl_program_list[i].type, ssl_prg)))
+            ret->ssl_prg = &(((t_ft_ssl_prg *)g_ft_ssl_program_list)[i]);
         i++;
     }
+	if (ssl_prg == NULL)
+		ft_ssl_error_prg(ssl_prg);
 	return (ret);
 }
 
@@ -81,7 +83,7 @@ void	msg_iter(t_list *elem, void *data)
 	d = (t_ft_ssl_data *)data;
 	cast = (t_ft_ssl_input *)elem->content;
 	if (cast->msg != NULL)
-		cast->digest = d->ssl_prg.ssl_fnc((t_byte *)cast->msg, cast->msg_len);
+		d->ssl_prg->ssl_fnc((t_byte *)cast->msg, cast->digest, cast->msg_len);
 	print_digest(d, cast);
 }
 

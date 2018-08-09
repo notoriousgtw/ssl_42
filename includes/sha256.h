@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:00:06 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/07 14:38:18 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 13:24:49 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ typedef struct  s_sha256
 	uint32_t 	*msgsched;
 }               t_sha256;
 
-char		    *ft_sha256(t_byte *message, size_t length);
+char		    *ft_sha256(t_byte *message, char *digest, size_t length);
 #endif

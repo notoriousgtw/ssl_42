@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 13:29:09 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/08 19:24:34 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 14:09:05 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void             add_input(t_ft_ssl_data *d, t_ft_ssl_input *input)
         ft_lstadd(&d->inputs, ft_lstnew(input, sizeof(t_ft_ssl_input)));
 }
 
-static t_ft_ssl_input   *new_input()
+static t_ft_ssl_input   *new_input(t_ft_ssl_data *d)
 {
     t_ft_ssl_input *ret;
 
@@ -32,7 +32,7 @@ static t_ft_ssl_input   *new_input()
     ret->filename = NULL;
     ret->msg = NULL;
     ret->msg_len = 0;
-    ret->digest = NULL;
+    ret->digest = ft_strnew(d->ssl_prg->digest_len);
     return (ret);
 }
 
@@ -42,7 +42,7 @@ void                    ft_ssl_read_stdin(t_ft_ssl_data *d)
     char            buf[SSL_BUFF_SIZE + 1];
     t_ft_ssl_input  *input;
 
-    input = new_input();
+    input = new_input(d);
     input->input_type = INPUT_STDIN;
     input->msg = ft_strnew(0);
     while((check = read(0, &buf, SSL_BUFF_SIZE)) > 0)
@@ -65,7 +65,7 @@ void                    ft_ssl_read_string(t_ft_ssl_data *d)
 {
     t_ft_ssl_input  *input;
 
-    input = new_input();
+    input = new_input(d);
     input->input_type = INPUT_STRING;
     input->msg = d->arg_str;
     input->msg_len = ft_strlen(d->arg_str);
@@ -79,7 +79,7 @@ void                    ft_ssl_read_file(t_ft_ssl_data *d, char *path)
     char    buf[SSL_BUFF_SIZE + 1];
     t_ft_ssl_input  *input;
 
-    input = new_input();
+    input = new_input(d);
     input->input_type = INPUT_FILE;
     if ((fd = open(path, O_RDONLY)) < 0)
     {
