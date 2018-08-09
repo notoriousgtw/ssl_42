@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 21:12:33 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/08 19:13:01 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 12:38:42 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			parse_args(t_ft_ssl_data *d, int argc, char **argv)
     {
         if (!d->s && !d->p && ft_strcmp("-p", argv[i]) == 0 && ++cnt)
             d->p = true;
-        else if (!d->s && !d->p && ft_strcmp("-q", argv[i]) == 0 && ++cnt)
+        else if (!d->s && !d->q && ft_strcmp("-q", argv[i]) == 0 && ++cnt)
             d->q = true;
         else if (!d->s && !d->r && ft_strcmp("-r", argv[i]) == 0 && ++cnt)
             d->r = true;
