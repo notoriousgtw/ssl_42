@@ -6,7 +6,7 @@
 #    By: gwood <gwood@42.us.org>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/30 14:30:20 by mhurd             #+#    #+#              #
-#    Updated: 2018/08/07 11:30:53 by gwood            ###   ########.fr        #
+#    Updated: 2018/08/08 13:37:45 by gwood            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME	= ft_ssl
 SRC		= main.c \
 		  md5.c \
 		  sha256.c \
-		  ssl_parser.c
+		  read.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 

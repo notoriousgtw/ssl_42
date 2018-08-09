@@ -5,39 +5,42 @@
 #include "md5.h"
 #define SSL_BUFF_SIZE 16
 
-typedef char  *(*t_ft_ssl_fnc)(t_byte *message, size_t length);
+typedef char    *(*t_ft_ssl_fnc)(t_byte *message, size_t length);
 
-typedef char *(*t_ft_ssl_args)(t_ssl_args *args);
-
-typedef struct s_ssl_args
-{
-    char        *input;
-    char        *stdin_str;
-    char        *flags
-}               t_ssl_args;
-
-typedef struct      s_ft_ssl_prg
+typedef struct  s_ft_ssl_prg
 {
     char            *type;
     t_ft_ssl_fnc    ssl_fnc;
-}                   t_ft_ssl_prg;
+}               t_ft_ssl_prg;
 
-static const t_ft_ssl_prg            g_ft_ssl_program_list[2] = {
-    {"md5", &ft_md5},
-    {"sha256", &ft_sha256}
-};
-
-static const t_ssl_args           g_ft_ssl_flags =
+typedef struct  s_ft_ssl_input
 {
-    {"p", &ft_ssl_echo_stdout},
-    {"q", &ft_ssl_quiet_mode},
-    {"r", &ft_ssl_rev_fmt},
-    {"s", &ft_ssl_print_sum}
+    char    *msg;
+    size_t  msg_len;
+    char    *digest;
+}               t_ft_ssl_input;
+
+typedef struct  s_ft_ssl_data
+{
+    t_bool          p;
+    t_bool          r;
+    t_bool          q;
+    t_bool          s;
+    t_bool          f;
+    char            *arg_iter;
+    size_t          arg_ind;
+    size_t          input_count;
+    t_list          *inputs;
+    t_ft_ssl_prg    ssl_prg;
+}               t_ft_ssl_data;
+
+static const t_ft_ssl_prg            g_ft_ssl_program_list[3] = {
+    {"md5", &ft_md5},
+    {"sha256", &ft_sha256},
+    {NULL, NULL}
 };
 
-char *ft_ssl_echo_stdout(char *input);
-char *ft_ssl_quiet_mode(char *input);
-char *ft_ssl_rev_fmt(char *input);
-char *ft_ssl_print_sum(char *input);
-
+void    ft_ssl_read_stdin(t_ft_ssl_data *d);
+void    ft_ssl_read_string(t_ft_ssl_data *d);
+void    ft_ssl_read_file(t_ft_ssl_data *d, const char *path);
 #endif

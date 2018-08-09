@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/07 14:42:13 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/08 16:51:35 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ static void op_loop(t_sha256 *d, uint32_t i)
     d->c = d->b;
     d->b = d->a;
     d->a = tmp1 + tmp2;
-    printf("comp =  %i \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \n",
-        i, d->a, d->b, d->c, d->d, d->e, d->f, d->g, d->h);
+    // printf("comp =  %i \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \n",
+    //     i, d->a, d->b, d->c, d->d, d->e, d->f, d->g, d->h);
 }
 
 static void     chunk_loop(t_sha256 *d, uint32_t i)
@@ -113,9 +113,9 @@ static void     chunk_loop(t_sha256 *d, uint32_t i)
         j++;
     }
     // ft_putendl("msgsched = ");
-    ft_putbytes_array(d->msgsched, sizeof(uint32_t) * 16, sizeof(uint64_t), "\n ");
-    ft_putchar('\n');
-    ft_putchar('\n');
+    // ft_putbytes_array(d->msgsched, sizeof(uint32_t) * 16, sizeof(uint64_t), "\n ");
+    // ft_putchar('\n');
+    // ft_putchar('\n');
     d->a = d->h0;
     d->b = d->h1;
     d->c = d->h2;
@@ -124,14 +124,14 @@ static void     chunk_loop(t_sha256 *d, uint32_t i)
     d->f = d->h5;
     d->g = d->h6;
     d->h = d->h7;
-    printf("\t\t a \t\t b \t\t c \t\t d \t\t e \t\t f \t\t g \t\t h \n");
-    printf("init: \t\t %x \t %x \t %x \t %x \t %x \t %x \t %x \t %x \n",
-        d->a, d->b, d->c, d->d, d->e, d->f, d->g, d->h);
+    // printf("\t\t a \t\t b \t\t c \t\t d \t\t e \t\t f \t\t g \t\t h \n");
+    // printf("init: \t\t %x \t %x \t %x \t %x \t %x \t %x \t %x \t %x \n",
+    //     d->a, d->b, d->c, d->d, d->e, d->f, d->g, d->h);
     j = 0;
     while (j < 64)
         op_loop(d, j++);
-    printf("h    =  %i \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \n",
-        i, d->a, d->b, d->c, d->d, d->e, d->f, d->g, d->h);
+    // printf("h    =  %i \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \n",
+        // i, d->a, d->b, d->c, d->d, d->e, d->f, d->g, d->h);
     d->h0 += d->a;
     d->h1 += d->b;
     d->h2 += d->c;
@@ -148,7 +148,7 @@ char		    *ft_sha256(t_byte *message, size_t length)
     t_sha256    *d;
     char        *digest;
 
-    printf("\n\nRunning SHA256 hash function on: '%s'\n\n", (char *)message);
+    // printf("\n\nRunning SHA256 hash function on: '%s'\n\n", (char *)message);
     digest = ft_strnew(64);
     d = init();
 	d->length = length;
