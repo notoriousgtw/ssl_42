@@ -6,13 +6,12 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 21:12:33 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 18:26:40 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 19:06:56 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ssl.h"
-#include "stdio.h"
 
 static void				parse_args(t_ft_ssl_data *d, int argc, char **argv)
 {
@@ -32,7 +31,7 @@ static void				parse_args(t_ft_ssl_data *d, int argc, char **argv)
         else if (!d->s && ft_strcmp("-s", argv[i]) == 0)
 		{
 			if (++i >= argc)
-				ft_ssl_error_nostring(d);
+				ft_ssl_error_no_string(d);
 			d->arg_str = argv[i];
             d->s = true;
 			cnt += 2;
@@ -47,7 +46,7 @@ static void				parse_args(t_ft_ssl_data *d, int argc, char **argv)
 	d->arg_ind = 2 + cnt;
 }
 
-static t_ft_ssl_data	*init(char *ssl_prg)
+static t_ft_ssl_data	*init(char *ssl_cmd)
 {
 	int				i;
     t_ft_ssl_data	*ret;
@@ -66,12 +65,12 @@ static t_ft_ssl_data	*init(char *ssl_prg)
 	i = 0;
     while (g_ft_ssl_program_list[i].name != NULL)
     {
-        if (!(ft_strcmp(g_ft_ssl_program_list[i].name, ssl_prg)))
+        if (!(ft_strcmp(g_ft_ssl_program_list[i].name, ssl_cmd)))
             ret->ssl_prg = &(((t_ft_ssl_prg *)g_ft_ssl_program_list)[i]);
         i++;
     }
 	if (ret->ssl_prg == NULL)
-		ft_ssl_error_prg(ret, ssl_prg);
+		ft_ssl_error_invalid_command(ret, ssl_cmd);
 	return (ret);
 }
 
@@ -82,7 +81,8 @@ static void				get_digests(t_ft_ssl_data *d, t_ft_ssl_input *input,
 		return ;
 	if (input->next)
 		get_digests(d, input->next, get_digest);
-	input->digest = get_digest((t_byte *)input->msg, input->msg_len);
+	if (input->msg != NULL)
+		input->digest = get_digest((t_byte *)input->msg, input->msg_len);
 	print_digest(d, input);
 }
 
@@ -94,7 +94,7 @@ int						main(int argc, char **argv)
 	if (argc > 1 && argv[1] != NULL)
 	{
 		if ((d = init(argv[1])) == NULL)
-			ft_error_unknown_free((t_free_fnc)ft_ssl_free_data, d);
+			ft_error_unknown_free(FT_ERROR_UNKNOWN, (t_free_fnc)ft_ssl_free_data, d);
 		parse_args(d, argc, argv);
 		if ((!d->s && !d->f) || d->p)
 			ft_ssl_read_stdin(d);

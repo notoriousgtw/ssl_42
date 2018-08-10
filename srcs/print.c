@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 18:18:25 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 18:22:24 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 19:11:10 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ static void    put_digest(t_ft_ssl_data *d, t_ft_ssl_input *input)
     }
     else if (input->input_type == INPUT_FILE)
     {
-        if (input->filename != NULL)
+        if (input->digest == NULL)
+            ft_ssl_error_invalid_file(d, input->filename);
+        else
         {
             ft_putstr(d->ssl_prg->name);
             ft_putstr(" (");
             ft_putstr(input->filename);
             ft_putstr(") = ");
+            ft_putendl(input->digest);
         }
-        ft_putendl(input->digest);
     }
 }
 

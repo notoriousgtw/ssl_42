@@ -6,13 +6,12 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 15:14:54 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 19:06:53 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sha256.h"
 #include "bswap_utils.h"
-#include <stdio.h>
 
 static t_sha256 *init(void)
 {
@@ -34,38 +33,26 @@ static t_sha256 *init(void)
 
 static void	    padding(t_sha256 *d, t_byte *message)
 {
-    // uint64_t    n = 435475931745;
+
     uint32_t    i;
 	size_t		new_length;
     uint32_t	bit_length;
 
-    // message++;
-    // d->length = 5;
+
+
     new_length = d->length * 8 + 1;
     while (new_length % 512 != 448)
-	{
     	new_length++;
-	}
     new_length /= 8;
     d->msg = (uint32_t *)ft_memalloc(new_length + 64);
     ft_memcpy(d->msg, message, d->length);
     ((uint8_t *)d->msg)[d->length] = 128;
-    // d->msg = ft_bswap_array(d->msg, d->length, sizeof(uint32_t));
     i = 0;
     while (i < d->length)
         ft_bswap32_v(d->msg + i++);
     bit_length = (uint32_t)8 * d->length;
-    // bit_length = ft_bswap64(bit_length);
     ft_memcpy(((uint8_t *)d->msg) + new_length + 4, &bit_length, 4);
-    // d->msg[(d->length)] = bit_length;
 	d->length = new_length + 8;
-    // ft_bswap64_v(&n);
-    // ft_putbytes(&n, 5, 0);
-    // ft_putchar('\n');
-    // ft_putchar('\n');
-    // ft_putbytes(d->msg, d->length, '\n');
-    // ft_putchar('\n');
-    // ft_putchar('\n');
 }
 
 static void op_loop(t_sha256 *d, uint32_t i)
@@ -73,14 +60,6 @@ static void op_loop(t_sha256 *d, uint32_t i)
     uint32_t    tmp1;
     uint32_t    tmp2;
 
-
-
-
-    // uint32_t S1 = BSIG1(d->e);
-    // uint32_t ch = CH(d->e, d->f, d->g);
-    // uint32_t k = g_k_s256[i];<not available>
-    // uint32_t w = d->msgsched[i];
-    // tmp1 = d->h + S1 + ch + k + w;
     tmp1 = d->h + BSIG1(d->e) + CH(d->e, d->f, d->g) + g_k_s256[i] + d->msgsched[i];
     tmp2 = BSIG0(d->a) + MAJ(d->a, d->b, d->c);
     d->h = d->g;
@@ -91,8 +70,6 @@ static void op_loop(t_sha256 *d, uint32_t i)
     d->c = d->b;
     d->b = d->a;
     d->a = tmp1 + tmp2;
-    // printf("comp =  %i \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \n",
-    //     i, d->a, d->b, d->c, d->d, d->e, d->f, d->g, d->h);
 }
 
 static void     chunk_loop(t_sha256 *d, uint32_t i)
@@ -107,15 +84,8 @@ static void     chunk_loop(t_sha256 *d, uint32_t i)
         d->msgsched[j] = d->msgsched[j - 16] +
             SSIG0(d->msgsched[j - 15]) + d->msgsched[j - 7] +
             SSIG1(d->msgsched[j - 2]);
-        // ft_memcpy(d->msgsched + j, &tmp, 1);
-        // ft_putbytes(&tmp, 1, 0);
-        // ft_putchar('\n');
         j++;
     }
-    // ft_putendl("msgsched = ");
-    // ft_putbytes_array(d->msgsched, sizeof(uint32_t) * 16, sizeof(uint64_t), "\n ");
-    // ft_putchar('\n');
-    // ft_putchar('\n');
     d->a = d->h0;
     d->b = d->h1;
     d->c = d->h2;
@@ -124,14 +94,9 @@ static void     chunk_loop(t_sha256 *d, uint32_t i)
     d->f = d->h5;
     d->g = d->h6;
     d->h = d->h7;
-    // printf("\t\t a \t\t b \t\t c \t\t d \t\t e \t\t f \t\t g \t\t h \n");
-    // printf("init: \t\t %x \t %x \t %x \t %x \t %x \t %x \t %x \t %x \n",
-    //     d->a, d->b, d->c, d->d, d->e, d->f, d->g, d->h);
     j = 0;
     while (j < 64)
         op_loop(d, j++);
-    // printf("h    =  %i \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \t %08x \n",
-        // i, d->a, d->b, d->c, d->d, d->e, d->f, d->g, d->h);
     d->h0 += d->a;
     d->h1 += d->b;
     d->h2 += d->c;

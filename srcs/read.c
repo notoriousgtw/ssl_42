@@ -6,13 +6,12 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 13:29:09 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 18:26:14 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 19:07:02 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ssl.h"
-#include <stdio.h>
 
 static void             add_input(t_ft_ssl_data *d, t_ft_ssl_input *input)
 {
@@ -52,7 +51,7 @@ void                    ft_ssl_read_stdin(t_ft_ssl_data *d)
 		ft_bzero(buf, SSL_BUFF_SIZE + 1);
     }
     if (check < 0)
-		ft_error_unknown_free((t_free_fnc)ft_ssl_free_data, d);
+		ft_error_unknown_free(FT_ERROR_UNKNOWN, (t_free_fnc)ft_ssl_free_data, d);
     if (d->p)
         ft_putstr(input->msg);
     add_input(d, input);
@@ -78,13 +77,12 @@ void                    ft_ssl_read_file(t_ft_ssl_data *d, char *path)
 
     input = new_input();
     input->input_type = INPUT_FILE;
+    input->filename = ft_strdup(path);
     if ((fd = open(path, O_RDONLY)) < 0)
     {
-        input->digest = ft_strjoin((char *)path, " is not a valid file");
         add_input(d, input);
         return ;
     }
-    input->filename = ft_strdup(path);
     input->msg = ft_strnew(0);
     while((check = read(fd, &buf, SSL_BUFF_SIZE)) > 0)
     {
@@ -94,6 +92,6 @@ void                    ft_ssl_read_file(t_ft_ssl_data *d, char *path)
 		ft_bzero(buf, SSL_BUFF_SIZE + 1);
     }
     if (check < 0)
-		ft_error_unknown_free((t_free_fnc)ft_ssl_free_data, d);
+		ft_error_unknown_free(FT_ERROR_UNKNOWN, (t_free_fnc)ft_ssl_free_data, d);
     add_input(d, input);
 }

@@ -7,6 +7,7 @@
 #define INPUT_STDIN 0
 #define INPUT_STRING 1
 #define INPUT_FILE 2
+#define FT_ERROR_UNKNOWN "ft_ssl: Error: "
 
 typedef char    *(*t_ft_ssl_fnc)(t_byte *message, size_t length);
 
@@ -52,8 +53,9 @@ void    ft_ssl_read_file(t_ft_ssl_data *d, char *path);
 
 void	print_digest(t_ft_ssl_data *d, t_ft_ssl_input *input);
 
-void    ft_ssl_error_prg(t_ft_ssl_data *d, char *prg);
-void    ft_ssl_error_nostring(t_ft_ssl_data *d);
+void    ft_ssl_error_invalid_command(t_ft_ssl_data *d, char *prg);
+void    ft_ssl_error_no_string(t_ft_ssl_data *d);
+void    ft_ssl_error_invalid_file(t_ft_ssl_data *d, char *filename);
 
 void    ft_ssl_free_data(t_ft_ssl_data *d);
 #endif
