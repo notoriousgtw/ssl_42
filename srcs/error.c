@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 12:42:21 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 18:52:23 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 19:14:18 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,5 @@ void    ft_ssl_error_invalid_file(t_ft_ssl_data *d, char *filename)
     ft_putstr_fd(d->ssl_prg->name, 2);
     ft_putstr_fd(": ", 2);
     ft_putstr_fd(filename, 2);
-    ft_error_free(": No such file",
-        (t_free_fnc)ft_ssl_free_data, d);
+    ft_putendl_fd(": No such file", 2);
 }
