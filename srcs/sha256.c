@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 13:24:14 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 15:14:54 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,18 +140,22 @@ static void     chunk_loop(t_sha256 *d, uint32_t i)
     d->h5 += d->f;
     d->h6 += d->g;
     d->h7 += d->h;
+    free(d->msgsched);
 }
 
-char		    *ft_sha256(t_byte *message, char *digest, size_t length)
+char		    *ft_sha256(t_byte *message, size_t length)
 {
-    uint32_t i;
+    uint32_t    i;
     t_sha256    *d;
+    char        *digest;
+
     d = init();
 	d->length = length;
     padding(d, message);
     i = 0;
 	while (i < d->length / 64)
         chunk_loop(d, i++);
+    digest = ft_strnew(64);
 	ft_uitoa(d->h0, digest, 16);
 	ft_uitoa(d->h1, digest + 8, 16);
 	ft_uitoa(d->h2, digest + 16, 16);
@@ -160,6 +164,8 @@ char		    *ft_sha256(t_byte *message, char *digest, size_t length)
 	ft_uitoa(d->h5, digest + 40, 16);
 	ft_uitoa(d->h6, digest + 48, 16);
 	ft_uitoa(d->h7, digest + 56, 16);
+    digest[64] = 0;
+    free(d->msg);
     free(d);
 	return (digest);
 }

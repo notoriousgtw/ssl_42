@@ -6,18 +6,13 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 21:12:33 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 14:28:50 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 15:33:25 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ssl.h"
 #include "stdio.h"
-
-void			display_usage()
-{
-	ft_putendl("usage: ft_ssl command [command opts] [command args]");
-}
 
 void			parse_args(t_ft_ssl_data *d, int argc, char **argv)
 {
@@ -88,7 +83,7 @@ void	msg_iter(t_list *elem, void *data)
 	d = (t_ft_ssl_data *)data;
 	cast = (t_ft_ssl_input *)elem->content;
 	if (cast->msg != NULL)
-		d->ssl_prg->ssl_fnc((t_byte *)cast->msg, cast->digest, cast->msg_len);
+		cast->digest = d->ssl_prg->ssl_fnc((t_byte *)cast->msg, cast->msg_len);
 	print_digest(d, cast);
 }
 
@@ -113,6 +108,7 @@ int	main(int argc, char **argv)
 				ft_ssl_read_file(d, argv[i++]);
 		}
 		ft_lstiter_data(d->inputs, msg_iter, d);
+		ft_ssl_free_data(d);
 	}
 	else
 		ft_putendl("usage: ft_ssl command [command opts] [command args]");

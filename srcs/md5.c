@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 13:24:23 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 15:14:47 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,17 @@ static void     word_loop(t_md5 *d)
     d->h3 += d->d;
 }
 
-char		    *ft_md5(t_byte *message, char *digest, size_t length)
+char		    *ft_md5(t_byte *message, size_t length)
 {
-    t_md5 *d;
+    t_md5   *d;
+    char    *digest;
 
     d = init();
 	d->length = length;
     padding(d, message);
 	while (d->offset < d->length)
         word_loop(d);
+    digest = ft_strnew(32);
 	ft_uitoa(d->h0, digest, 16);
 	ft_uitoa(d->h1, digest + 8, 16);
 	ft_uitoa(d->h2, digest + 16, 16);

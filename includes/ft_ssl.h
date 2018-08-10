@@ -8,7 +8,7 @@
 #define INPUT_STRING 1
 #define INPUT_FILE 2
 
-typedef char    *(*t_ft_ssl_fnc)(t_byte *message, char *digest, size_t length);
+typedef char    *(*t_ft_ssl_fnc)(t_byte *message, size_t length);
 
 typedef struct  s_ft_ssl_prg
 {
@@ -48,7 +48,11 @@ static const t_ft_ssl_prg            g_ft_ssl_program_list[3] = {
 void    ft_ssl_read_stdin(t_ft_ssl_data *d);
 void    ft_ssl_read_string(t_ft_ssl_data *d);
 void    ft_ssl_read_file(t_ft_ssl_data *d, char *path);
+
 void	print_digest(t_ft_ssl_data *d, t_ft_ssl_input *input);
+
 void    ft_ssl_error_prg(char *prg);
 void    ft_ssl_error_nostring(t_ft_ssl_data *d);
+
+void    ft_ssl_free_data(t_ft_ssl_data *d);
 #endif
