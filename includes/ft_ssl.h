@@ -19,11 +19,12 @@ typedef struct  s_ft_ssl_prg
 
 typedef struct  s_ft_ssl_input
 {
-    int     input_type;
-    char    *filename;
-    char    *msg;
-    size_t  msg_len;
-    char    *digest;
+    int                     input_type;
+    char                    *filename;
+    char                    *msg;
+    size_t                  msg_len;
+    char                    *digest;
+    struct s_ft_ssl_input   *next;
 }               t_ft_ssl_input;
 
 typedef struct  s_ft_ssl_data
@@ -35,7 +36,7 @@ typedef struct  s_ft_ssl_data
     t_bool          f;
     char            *arg_str;
     size_t          arg_ind;
-    t_list          *inputs;
+    t_ft_ssl_input  *inputs;
     t_ft_ssl_prg    *ssl_prg;
 }               t_ft_ssl_data;
 

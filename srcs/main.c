@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 21:12:33 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 15:33:25 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 18:01:29 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_ssl.h"
 #include "stdio.h"
 
-void			parse_args(t_ft_ssl_data *d, int argc, char **argv)
+static void				parse_args(t_ft_ssl_data *d, int argc, char **argv)
 {
     int i;
 	uint32_t cnt;
@@ -47,7 +47,7 @@ void			parse_args(t_ft_ssl_data *d, int argc, char **argv)
 	d->arg_ind = 2 + cnt;
 }
 
-t_ft_ssl_data   *init(char *ssl_prg)
+static t_ft_ssl_data	*init(char *ssl_prg)
 {
 	int				i;
     t_ft_ssl_data	*ret;
@@ -75,19 +75,18 @@ t_ft_ssl_data   *init(char *ssl_prg)
 	return (ret);
 }
 
-void	msg_iter(t_list *elem, void *data)
+static void				get_digests(t_ft_ssl_data *d, t_ft_ssl_input *input,
+	t_ft_ssl_fnc get_digest)
 {
-	t_ft_ssl_data	*d;
-	t_ft_ssl_input	*cast;
-
-	d = (t_ft_ssl_data *)data;
-	cast = (t_ft_ssl_input *)elem->content;
-	if (cast->msg != NULL)
-		cast->digest = d->ssl_prg->ssl_fnc((t_byte *)cast->msg, cast->msg_len);
-	print_digest(d, cast);
+	if (!input)
+		return ;
+	if (input->next)
+		get_digests(d, input->next, get_digest);
+	input->digest = get_digest((t_byte *)input->msg, input->msg_len);
+	print_digest(d, input);
 }
 
-int	main(int argc, char **argv)
+int						main(int argc, char **argv)
 {
 	int i;
 	t_ft_ssl_data   *d;
@@ -107,7 +106,7 @@ int	main(int argc, char **argv)
 			while (i < argc)
 				ft_ssl_read_file(d, argv[i++]);
 		}
-		ft_lstiter_data(d->inputs, msg_iter, d);
+		get_digests(d, d->inputs, d->ssl_prg->ssl_fnc);
 		ft_ssl_free_data(d);
 	}
 	else

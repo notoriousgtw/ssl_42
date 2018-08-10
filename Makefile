@@ -6,7 +6,7 @@
 #    By: gwood <gwood@42.us.org>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/30 14:30:20 by mhurd             #+#    #+#              #
-#    Updated: 2018/08/09 16:56:15 by gwood            ###   ########.fr        #
+#    Updated: 2018/08/09 18:02:19 by gwood            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ obj:
 	mkdir -p $(OBJDIR)
 
 $(OBJDIR)%.o:$(SRCDIR)%.c
-	$(CC) $(CFLAGS) $(LIBINC) -I $(INCDIR) -o $@ -c $< -fsanitize=address
+	$(CC) $(CFLAGS) $(LIBINC) -I $(INCDIR) -o $@ -c $<
 
 libft: $(LIBFT)
 
@@ -50,7 +50,7 @@ $(LIBFT):
 	make -C ./libft
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(LIBLINK) -fsanitize=address
+	$(CC) -o $(NAME) $(OBJ) $(LIBLINK)
 
 clean:
 	rm -rf $(OBJDIR)

@@ -6,27 +6,32 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 14:32:22 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 16:35:45 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 17:42:48 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ssl.h"
 
-void    del_input(t_list *elem)
+void    del_inputs(t_ft_ssl_input **inputs)
 {
-    t_ft_ssl_input *input;
+    t_ft_ssl_input *tmp;
+    t_ft_ssl_input *lst;
 
-    input = (t_ft_ssl_input *)elem->content;
-    ft_strdel(&input->msg);
-    ft_strdel(&input->filename);
-    ft_strdel(&input->digest);
-    free(input);
+    lst = *inputs;
+    while (lst != NULL)
+    {
+        tmp = lst->next;
+        ft_strdel(&lst->msg);
+        ft_strdel(&lst->filename);
+        ft_strdel(&lst->digest);
+        free(lst);
+        lst = tmp;
+    }
 }
 
 void    ft_ssl_free_data(t_ft_ssl_data *d)
 {
-    ft_lstiter(d->inputs, del_input);
-    ft_lstdel(&(d->inputs), NULL);
+    del_inputs(&d->inputs);
     free(d);
 }
