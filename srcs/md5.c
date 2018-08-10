@@ -6,11 +6,12 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 15:14:47 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 20:01:38 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "md5.h"
+#include <stdio.h>
 
 static t_md5	*init(void)
 {
@@ -75,7 +76,7 @@ static void     word_loop(t_md5 *d)
     uint32_t    i;
 
     d->words = (uint32_t *) (d->msg + d->offset);
-    d->offset += 512 / 8;
+    d->offset += 64;
     d->a = d->h0;
     d->b = d->h1;
     d->c = d->h2;
@@ -100,10 +101,10 @@ char		    *ft_md5(t_byte *message, size_t length)
 	while (d->offset < d->length)
         word_loop(d);
     digest = ft_strnew(32);
-	ft_uitoa(d->h0, digest, 16);
-	ft_uitoa(d->h1, digest + 8, 16);
-	ft_uitoa(d->h2, digest + 16, 16);
-	ft_uitoa(d->h3, digest + 24, 16);
+	ft_uitoa(ft_bswap32(d->h0), digest, 16);
+	ft_uitoa(ft_bswap32(d->h1), digest + 8, 16);
+	ft_uitoa(ft_bswap32(d->h2), digest + 16, 16);
+	ft_uitoa(ft_bswap32(d->h3), digest + 24, 16);
     digest[32] = 0;
     free(d);
 	return (digest);

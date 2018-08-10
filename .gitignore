@@ -6,3 +6,5 @@ srcs/sha512.c
 sha.c
 includes/sha512.h
 srcs/sha512.c
+md5_ref.c
+md5

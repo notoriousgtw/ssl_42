@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 19:06:53 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 20:19:27 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ static t_sha256 *init(void)
     t_sha256 *ret;
 
     ret = (t_sha256 *)ft_memalloc(sizeof(t_sha256));
-    ret->h0 =   0x6a09e667;
-    ret->h1 =   0xbb67ae85;
-    ret->h2 =   0x3c6ef372;
-    ret->h3 =   0xa54ff53a;
-    ret->h4 =   0x510e527f;
-    ret->h5 =   0x9b05688c;
-    ret->h6 =   0x1f83d9ab;
-    ret->h7 =   0x5be0cd19;
+    ret->h0 = 0x6a09e667;
+    ret->h1 = 0xbb67ae85;
+    ret->h2 = 0x3c6ef372;
+    ret->h3 = 0xa54ff53a;
+    ret->h4 = 0x510e527f;
+    ret->h5 = 0x9b05688c;
+    ret->h6 = 0x1f83d9ab;
+    ret->h7 = 0x5be0cd19;
     ret->msg = NULL;
     ret->msgsched = NULL;
     return (ret);
@@ -60,7 +60,8 @@ static void op_loop(t_sha256 *d, uint32_t i)
     uint32_t    tmp1;
     uint32_t    tmp2;
 
-    tmp1 = d->h + BSIG1(d->e) + CH(d->e, d->f, d->g) + g_k_s256[i] + d->msgsched[i];
+    tmp1 = d->h + BSIG1(d->e) + CH(d->e, d->f, d->g) + g_k_s256[i] +
+        d->msgsched[i];
     tmp2 = BSIG0(d->a) + MAJ(d->a, d->b, d->c);
     d->h = d->g;
     d->g = d->f;
