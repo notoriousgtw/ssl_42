@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 21:12:33 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 18:01:29 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 18:26:40 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static t_ft_ssl_data	*init(char *ssl_prg)
         i++;
     }
 	if (ret->ssl_prg == NULL)
-		ft_ssl_error_prg(ssl_prg);
+		ft_ssl_error_prg(ret, ssl_prg);
 	return (ret);
 }
 
@@ -94,7 +94,7 @@ int						main(int argc, char **argv)
 	if (argc > 1 && argv[1] != NULL)
 	{
 		if ((d = init(argv[1])) == NULL)
-			ft_error_unknown();
+			ft_error_unknown_free((t_free_fnc)ft_ssl_free_data, d);
 		parse_args(d, argc, argv);
 		if ((!d->s && !d->f) || d->p)
 			ft_ssl_read_stdin(d);

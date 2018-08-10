@@ -52,7 +52,7 @@ void    ft_ssl_read_file(t_ft_ssl_data *d, char *path);
 
 void	print_digest(t_ft_ssl_data *d, t_ft_ssl_input *input);
 
-void    ft_ssl_error_prg(char *prg);
+void    ft_ssl_error_prg(t_ft_ssl_data *d, char *prg);
 void    ft_ssl_error_nostring(t_ft_ssl_data *d);
 
 void    ft_ssl_free_data(t_ft_ssl_data *d);

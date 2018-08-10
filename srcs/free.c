@@ -6,14 +6,14 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/09 14:32:22 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 17:42:48 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 18:22:04 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ssl.h"
 
-void    del_inputs(t_ft_ssl_input **inputs)
+static void    del_inputs(t_ft_ssl_input **inputs)
 {
     t_ft_ssl_input *tmp;
     t_ft_ssl_input *lst;
@@ -30,7 +30,7 @@ void    del_inputs(t_ft_ssl_input **inputs)
     }
 }
 
-void    ft_ssl_free_data(t_ft_ssl_data *d)
+void            ft_ssl_free_data(t_ft_ssl_data *d)
 {
     del_inputs(&d->inputs);
     free(d);

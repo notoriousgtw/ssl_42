@@ -6,14 +6,14 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 18:18:25 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 17:57:19 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 18:22:24 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "ft_ssl.h"
 
-void    put_digest(t_ft_ssl_data *d, t_ft_ssl_input *input)
+static void    put_digest(t_ft_ssl_data *d, t_ft_ssl_input *input)
 {
     if (input->input_type == INPUT_STDIN)
         ft_putendl(input->digest);
@@ -38,7 +38,7 @@ void    put_digest(t_ft_ssl_data *d, t_ft_ssl_input *input)
     }
 }
 
-void    put_digest_rev(t_ft_ssl_input *input)
+static void    put_digest_rev(t_ft_ssl_input *input)
 {
     if (input->input_type == INPUT_STDIN)
         ft_putendl(input->digest);

@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 13:29:09 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 18:16:53 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/09 18:26:14 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void                    ft_ssl_read_stdin(t_ft_ssl_data *d)
 		ft_bzero(buf, SSL_BUFF_SIZE + 1);
     }
     if (check < 0)
-        ft_error_unknown();
+		ft_error_unknown_free((t_free_fnc)ft_ssl_free_data, d);
     if (d->p)
         ft_putstr(input->msg);
     add_input(d, input);
@@ -94,6 +94,6 @@ void                    ft_ssl_read_file(t_ft_ssl_data *d, char *path)
 		ft_bzero(buf, SSL_BUFF_SIZE + 1);
     }
     if (check < 0)
-        ft_error_unknown();
+		ft_error_unknown_free((t_free_fnc)ft_ssl_free_data, d);
     add_input(d, input);
 }
