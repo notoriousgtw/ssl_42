@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/13 15:44:21 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/13 16:24:36 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void		padding(t_sha256 *d, t_byte *message)
 	ft_memcpy(d->msg, message, d->length);
 	((uint8_t *)d->msg)[d->length] = 128;
 	i = 0;
-	while (i < d->length)
-		ft_bswap32_v(d->msg + i++);
+	while (i < d->length / 2)
+		ft_bswap32_v(&(d->msg[i++]));
 	bit_length = (uint32_t)8 * d->length;
 	ft_memcpy(((uint8_t *)d->msg) + new_length + 4, &bit_length, 4);
 	d->length = new_length + 8;
