@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 20:19:27 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/13 10:53:24 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,14 +122,14 @@ char		    *ft_sha256(t_byte *message, size_t length)
 	while (i < d->length / 64)
         chunk_loop(d, i++);
     digest = ft_strnew(64);
-	ft_uitoa(d->h0, digest, 16);
-	ft_uitoa(d->h1, digest + 8, 16);
-	ft_uitoa(d->h2, digest + 16, 16);
-	ft_uitoa(d->h3, digest + 24, 16);
-	ft_uitoa(d->h4, digest + 32, 16);
-	ft_uitoa(d->h5, digest + 40, 16);
-	ft_uitoa(d->h6, digest + 48, 16);
-	ft_uitoa(d->h7, digest + 56, 16);
+	digest = ft_strjoinfree(digest, ft_uitoa(d->h0, 16), 3);
+	digest = ft_strjoinfree(digest, ft_uitoa(d->h1, 16), 3);
+	digest = ft_strjoinfree(digest, ft_uitoa(d->h2, 16), 3);
+	digest = ft_strjoinfree(digest, ft_uitoa(d->h3, 16), 3);
+	digest = ft_strjoinfree(digest, ft_uitoa(d->h4, 16), 3);
+	digest = ft_strjoinfree(digest, ft_uitoa(d->h5, 16), 3);
+	digest = ft_strjoinfree(digest, ft_uitoa(d->h6, 16), 3);
+	digest = ft_strjoinfree(digest, ft_uitoa(d->h7, 16), 3);
     digest[64] = 0;
     free(d->msg);
     free(d);

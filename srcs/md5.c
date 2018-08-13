@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 20:01:38 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/13 10:51:41 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ char		    *ft_md5(t_byte *message, size_t length)
 	while (d->offset < d->length)
         word_loop(d);
     digest = ft_strnew(32);
-	ft_uitoa(ft_bswap32(d->h0), digest, 16);
-	ft_uitoa(ft_bswap32(d->h1), digest + 8, 16);
-	ft_uitoa(ft_bswap32(d->h2), digest + 16, 16);
-	ft_uitoa(ft_bswap32(d->h3), digest + 24, 16);
+	digest = ft_strjoinfree(digest, ft_uitoa(ft_bswap32(d->h0), 16), 3);
+	digest = ft_strjoinfree(digest, ft_uitoa(ft_bswap32(d->h1), 16), 3);
+	digest = ft_strjoinfree(digest, ft_uitoa(ft_bswap32(d->h2), 16), 3);
+	digest = ft_strjoinfree(digest, ft_uitoa(ft_bswap32(d->h3), 16), 3);
     digest[32] = 0;
     free(d);
 	return (digest);
