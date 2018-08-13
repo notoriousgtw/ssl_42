@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sha256.h                                           :+:      :+:    :+:   */
+/*   ft_sha256.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
+/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:00:06 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 15:11:27 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/13 13:41:01 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHA256_H
-# define SHA256_H
+#ifndef FT_SHA256_H
+# define FT_SHA256_H
 
 # include "libft.h"
 # include <inttypes.h>
@@ -45,28 +45,14 @@ static const uint32_t g_k_s256[64] =
 	0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2
 };
 
-typedef struct  s_sha256
+typedef struct	s_sha256
 {
 	size_t		length;
 	uint32_t	*msg;
-    uint32_t    h0;
-    uint32_t    h1;
-    uint32_t    h2;
-    uint32_t    h3;
-    uint32_t    h4;
-    uint32_t    h5;
-    uint32_t    h6;
-    uint32_t    h7;
-	uint32_t 	a;
-	uint32_t 	b;
-	uint32_t 	c;
-	uint32_t 	d;
-	uint32_t 	e;
-	uint32_t 	f;
-	uint32_t 	g;
-	uint32_t 	h;
-	uint32_t 	*msgsched;
-}               t_sha256;
+	uint32_t	head[8];
+	uint32_t	wvars[8];
+	uint32_t	*msgsched;
+}				t_sha256;
 
-char		    *ft_sha256(t_byte *message, size_t length);
+char			*ft_sha256(t_byte *message, size_t length);
 #endif

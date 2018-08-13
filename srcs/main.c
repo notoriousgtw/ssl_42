@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
+/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 21:12:33 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/09 20:00:16 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/13 13:44:37 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,41 +15,37 @@
 
 static void				parse_args(t_ft_ssl_data *d, int argc, char **argv)
 {
-    int i;
-	uint32_t cnt;
+	int			i;
+	uint32_t	cnt;
 
 	cnt = 0;
-    i = 2;
-    while (i < argc)
-    {
-        if (!d->s && !d->p && ft_strcmp("-p", argv[i]) == 0 && ++cnt)
-            d->p = true;
-        else if (!d->s && !d->q && ft_strcmp("-q", argv[i]) == 0 && ++cnt)
-            d->q = true;
-        else if (!d->s && !d->r && ft_strcmp("-r", argv[i]) == 0 && ++cnt)
-            d->r = true;
-        else if (!d->s && ft_strcmp("-s", argv[i]) == 0)
+	i = 1;
+	while (i++ < argc)
+	{
+		if (!d->s && !d->p && ft_strcmp("-p", argv[i]) == 0 && ++cnt)
+			d->p = true;
+		else if (!d->s && !d->q && ft_strcmp("-q", argv[i]) == 0 && ++cnt)
+			d->q = true;
+		else if (!d->s && !d->r && ft_strcmp("-r", argv[i]) == 0 && ++cnt)
+			d->r = true;
+		else if (!d->s && ft_strcmp("-s", argv[i]) == 0)
 		{
 			if (++i >= argc)
 				ft_ssl_error_no_string(d);
 			d->arg_str = argv[i];
-            d->s = true;
+			d->s = true;
 			cnt += 2;
 		}
-		else
-		{
-			d->f = true;
-			break;
-		}
-		i++;
-    }
+		else if ((d->f = true))
+			break ;
+	}
 	d->arg_ind = 2 + cnt;
 }
 
 static t_ft_ssl_data	*init(char *ssl_cmd)
 {
 	int				i;
-    t_ft_ssl_data	*ret;
+	t_ft_ssl_data	*ret;
 
 	if (!(ret = (t_ft_ssl_data *)ft_memalloc(sizeof(t_ft_ssl_data))))
 		return (NULL);
@@ -63,12 +59,12 @@ static t_ft_ssl_data	*init(char *ssl_cmd)
 	ret->inputs = NULL;
 	ret->ssl_prg = NULL;
 	i = 0;
-    while (g_ft_ssl_program_list[i].name != NULL)
-    {
-        if (!(ft_strcmp(g_ft_ssl_program_list[i].name, ssl_cmd)))
-            ret->ssl_prg = &(((t_ft_ssl_prg *)g_ft_ssl_program_list)[i]);
-        i++;
-    }
+	while (g_ft_ssl_program_list[i].name != NULL)
+	{
+		if (!(ft_strcmp(g_ft_ssl_program_list[i].name, ssl_cmd)))
+			ret->ssl_prg = &(((t_ft_ssl_prg *)g_ft_ssl_program_list)[i]);
+		i++;
+	}
 	if (ret->ssl_prg == NULL)
 		ft_ssl_error_invalid_command(ret, ssl_cmd);
 	return (ret);
@@ -88,8 +84,8 @@ static void				get_digests(t_ft_ssl_data *d, t_ft_ssl_input *input,
 
 int						main(int argc, char **argv)
 {
-	int i;
-	t_ft_ssl_data   *d;
+	int				i;
+	t_ft_ssl_data	*d;
 
 	if (argc > 1 && argv[1] != NULL)
 	{
