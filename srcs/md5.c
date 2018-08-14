@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   md5.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/13 13:25:55 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/13 19:53:43 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,40 +46,37 @@ static void		padding(t_md5 *d, t_byte *message)
 	d->length = new_length + 8;
 }
 
-static uint32_t	op(t_md5 *d, uint32_t i)
+static void op(t_md5 *d, uint32_t i, uint32_t *f, uint32_t *g)
 {
-	uint32_t	f;
-	uint32_t	g;
-
 	if (i < 16)
 	{
-		f = F(d->b, d->c, d->d);
-		g = i;
+		*f = F(d->b, d->c, d->d);
+		*g = i;
 	}
 	else if (i < 32)
 	{
-		f = G(d->b, d->c, d->d);
-		g = (5 * i + 1) % 16;
+		*f = G(d->b, d->c, d->d);
+		*g = (5 * i + 1) % 16;
 	}
 	else if (i < 48)
 	{
-		f = H(d->b, d->c, d->d);
-		g = (3 * i + 5) % 16;
+		*f = H(d->b, d->c, d->d);
+		*g = (3 * i + 5) % 16;
 	}
 	else
 	{
-		f = I(d->b, d->c, d->d);
-		g = (7 * i) % 16;
+		*f = I(d->b, d->c, d->d);
+		*g = (7 * i) % 16;
 	}
-	f = f + d->a + g_k[i] + d->words[g];
-	return (f);
 }
 
-static void		word_loop(t_md5 *d)
+static void	 word_loop(t_md5 *d)
 {
 	uint32_t	i;
+	uint32_t	f;
+	uint32_t	g;
 
-	d->words = (uint32_t *)(d->msg + d->offset);
+	d->words = (uint32_t *) (d->msg + d->offset);
 	d->offset += 64;
 	d->a = d->h0;
 	d->b = d->h1;
@@ -88,10 +85,12 @@ static void		word_loop(t_md5 *d)
 	i = -1;
 	while (++i < 64)
 	{
+		op(d, i, &f, &g);
+		f = f + d->a + g_k[i] + d->words[g];
 		d->a = d->d;
 		d->d = d->c;
 		d->c = d->b;
-		d->b = d->b + ROTL(op(d, i), g_s[i]);
+		d->b = d->b + ROTL(f, g_s[i]);
 	}
 	d->h0 += d->a;
 	d->h1 += d->b;

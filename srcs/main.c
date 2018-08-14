@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/20 21:12:33 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/13 13:44:37 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/13 19:40:16 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ static void				parse_args(t_ft_ssl_data *d, int argc, char **argv)
 	i = 1;
 	while (i++ < argc)
 	{
-		if (!d->s && !d->p && ft_strcmp("-p", argv[i]) == 0 && ++cnt)
+		if (!d->s && !d->p && argv[i] && ft_strcmp("-p", argv[i]) == 0 && ++cnt)
 			d->p = true;
-		else if (!d->s && !d->q && ft_strcmp("-q", argv[i]) == 0 && ++cnt)
+		else if (!d->s && !d->q && argv[i] && ft_strcmp("-q", argv[i]) == 0 && ++cnt)
 			d->q = true;
-		else if (!d->s && !d->r && ft_strcmp("-r", argv[i]) == 0 && ++cnt)
+		else if (!d->s && !d->r && argv[i] && ft_strcmp("-r", argv[i]) == 0 && ++cnt)
 			d->r = true;
-		else if (!d->s && ft_strcmp("-s", argv[i]) == 0)
+		else if (!d->s && argv[i] && ft_strcmp("-s", argv[i]) == 0)
 		{
 			if (++i >= argc)
 				ft_ssl_error_no_string(d);
@@ -36,7 +36,7 @@ static void				parse_args(t_ft_ssl_data *d, int argc, char **argv)
 			d->s = true;
 			cnt += 2;
 		}
-		else if ((d->f = true))
+		else if (argv[i] && (d->f = true))
 			break ;
 	}
 	d->arg_ind = 2 + cnt;
