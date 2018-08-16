@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 13:29:09 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/16 12:45:34 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 14:10:58 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void					ft_ssl_md_read_string(t_ft_ssl_md_data *d)
 
 	input = new_input();
 	input->input_type = INPUT_STRING;
-	input->input = d->arg_str;
+	input->input = ft_strdup(d->arg_str);
 	input->input_len = ft_strlen(d->arg_str);
 	add_input(&(d->inputs), input);
 }

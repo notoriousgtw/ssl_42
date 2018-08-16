@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 13:06:40 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/15 17:48:40 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 13:58:15 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 void					ft_ssl_md_free_data(t_ft_ssl_md_data *d)
 {
 	del_inputs(&d->inputs);
+	ft_freeopts(&d->opts);
+	ft_strdel(&d->name);
 	free(d);
 }
 
@@ -97,5 +99,6 @@ t_ft_ssl_md_data		*ft_ssl_md(int argc, char **argv,
 			ft_ssl_md_read_file(d, argv[i++]);
 	}
 	get_digests(d, d->inputs, md);
+	ft_ssl_md_free_data(d);
 	return (d);
 }
