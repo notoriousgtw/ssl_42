@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 18:18:25 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/15 18:06:06 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 13:39:54 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,8 @@ static void	put_digest_rev(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 
 void		print_digest(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 {
-	if (!d->q)
-	{
-		if (!d->r)
-			put_digest(d, input);
-		else
-			put_digest_rev(d, input);
-	}
+	if (!d->r)
+		put_digest(d, input);
+	else
+		put_digest_rev(d, input);
 }
