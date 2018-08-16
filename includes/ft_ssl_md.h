@@ -6,14 +6,18 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 13:18:05 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/15 16:34:16 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 12:58:23 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SSL_SHA256_H
 # define FT_SSL_SHA256_H
 
+# include "ft_md5.h"
 # include "ft_sha256.h"
+# include "ft_sha224.h"
+# include "ft_sha512.h"
+# include "ft_sha384.h"
 # include "ft_getopts.h"
 
 typedef char					*(*t_ft_ssl_md_fnc)(t_byte *msg, size_t msg_len);

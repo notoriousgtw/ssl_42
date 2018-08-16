@@ -6,7 +6,7 @@
 #    By: gwood <gwood@42.us.org>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/30 14:30:20 by mhurd             #+#    #+#              #
-#    Updated: 2018/08/15 16:43:57 by gwood            ###   ########.fr        #
+#    Updated: 2018/08/16 12:58:49 by gwood            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,11 @@ SRC		= ft_ssl.c \
 		  ft_ssl_md_print.c \
 		  ft_ssl_md_error.c \
 		  inputs.c \
+		  ft_md5.c \
+		  ft_sha256.c \
+		  ft_sha224.c \
+		  ft_sha512.c \
+		  ft_sha384.c
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 

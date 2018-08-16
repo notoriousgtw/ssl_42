@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 13:29:09 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/15 16:40:24 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 12:45:34 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,8 @@ void					ft_ssl_md_read_stdin(t_ft_ssl_md_data *d)
 	while ((check = read(0, &buf, SSL_BUFF_SIZE)) > 0)
 	{
 		buf[check] = 0;
-		input->input =
-			ft_strjoinfree(input->input, buf, 1);
 		input->input_len += check;
+		input->input = ft_strjoinfree(input->input, buf, 1);
 		ft_bzero(buf, SSL_BUFF_SIZE + 1);
 	}
 	if (check < 0)
@@ -68,8 +67,8 @@ void					ft_ssl_md_read_file(t_ft_ssl_md_data *d, char *path)
 	while ((check = read(fd, &buf, SSL_BUFF_SIZE)) > 0)
 	{
 		buf[check] = 0;
-		input->input = ft_strjoinfree(input->input, buf, 1);
 		input->input_len += check;
+		input->input = ft_strjoinfree(input->input, buf, 1);
 		ft_bzero(buf, SSL_BUFF_SIZE + 1);
 	}
 	if (check < 0)

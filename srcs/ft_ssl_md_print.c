@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 18:18:25 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/15 17:57:01 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/15 18:06:06 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	put_digest(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 {
 	if (input->input_type == INPUT_STDIN)
 		ft_putendl(input->output);
-	else if (input->input_type == INPUT_STRING)
+	else if (!d->q && input->input_type == INPUT_STRING)
 	{
 		ft_putstr(d->name);
 		ft_putstr(" (\"");
@@ -29,7 +29,7 @@ static void	put_digest(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 	{
 		if (input->output == NULL)
 			ft_ssl_md_error_invalid_file(d, input->filename);
-		else if (input->filename != NULL)
+		else if (!d->q && input->filename != NULL)
 		{
 			ft_putstr(d->name);
 			ft_putstr(" (");
@@ -37,14 +37,18 @@ static void	put_digest(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 			ft_putstr(") = ");
 			ft_putendl(input->output);
 		}
+		else
+			ft_putendl(input->output);
 	}
+	else
+		ft_putendl(input->output);
 }
 
 static void	put_digest_rev(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 {
 	if (input->input_type == INPUT_STDIN)
 		ft_putendl(input->output);
-	else if (input->input_type == INPUT_STRING)
+	else if (!d->q && input->input_type == INPUT_STRING)
 	{
 		ft_putstr(input->output);
 		ft_putstr(" \"");
@@ -55,7 +59,7 @@ static void	put_digest_rev(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 	{
 		if (input->output == NULL)
 			ft_ssl_md_error_invalid_file(d, input->filename);
-		else if (input->filename != NULL)
+		else if (!d->q && input->filename != NULL)
 		{
 			ft_putstr(input->output);
 			ft_putchar(' ');
@@ -64,6 +68,8 @@ static void	put_digest_rev(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 		else
 			ft_putendl(input->output);
 	}
+	else
+		ft_putendl(input->output);
 }
 
 void		print_digest(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
@@ -74,9 +80,5 @@ void		print_digest(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 			put_digest(d, input);
 		else
 			put_digest_rev(d, input);
-	}
-	else
-	{
-		ft_putendl(input->output);
 	}
 }

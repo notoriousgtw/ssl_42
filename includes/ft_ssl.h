@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 12:57:55 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/15 16:38:00 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 12:59:24 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define FT_SSL_H
 
 # include "libft.h"
-# define SSL_BUFF_SIZE 16
+# define SSL_BUFF_SIZE 500
 # define INPUT_STDIN 0
 # define INPUT_STRING 1
 # define INPUT_FILE 2
 # define FT_ERROR_UNKNOWN "ft_ssl: Error: "
 
-typedef int					(*t_ft_ssl_cmd)(int argc, char **argv);
+typedef void				(*t_ft_ssl_cmd)(int argc, char **argv);
 
 typedef struct				s_ft_ssl_input
 {
@@ -44,10 +44,18 @@ typedef struct				s_ft_ssl_data
 	t_ft_ssl_prg	*ssl_prg;
 }							t_ft_ssl_data;
 
-int							ft_ssl_sha256(int argc, char **argv);
+void						ft_ssl_md5(int argc, char **argv);
+void						ft_ssl_sha256(int argc, char **argv);
+void						ft_ssl_sha224(int argc, char **argv);
+void						ft_ssl_sha512(int argc, char **argv);
+void						ft_ssl_sha384(int argc, char **argv);
 
-static const t_ft_ssl_prg	g_ft_ssl_program_list[3] = {
+static const t_ft_ssl_prg	g_ft_ssl_program_list[6] = {
+	{"md5", &ft_ssl_md5},
 	{"sha256", &ft_ssl_sha256},
+	{"sha224", &ft_ssl_sha224},
+	{"sha512", &ft_ssl_sha512},
+	{"sha384", &ft_ssl_sha384},
 	{NULL, NULL}
 };
 
