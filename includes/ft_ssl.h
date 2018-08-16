@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 12:57:55 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/16 12:59:24 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 13:22:22 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,6 @@ typedef struct				s_ft_ssl_prg
 }							t_ft_ssl_prg;
 
 
-typedef struct				s_ft_ssl_data
-{
-	t_ft_ssl_prg	*ssl_prg;
-}							t_ft_ssl_data;
 
 void						ft_ssl_md5(int argc, char **argv);
 void						ft_ssl_sha256(int argc, char **argv);
@@ -50,7 +46,7 @@ void						ft_ssl_sha224(int argc, char **argv);
 void						ft_ssl_sha512(int argc, char **argv);
 void						ft_ssl_sha384(int argc, char **argv);
 
-static const t_ft_ssl_prg	g_ft_ssl_program_list[6] = {
+static const t_ft_ssl_prg	g_ft_ssl_program_list[] = {
 	{"md5", &ft_ssl_md5},
 	{"sha256", &ft_ssl_sha256},
 	{"sha224", &ft_ssl_sha224},
