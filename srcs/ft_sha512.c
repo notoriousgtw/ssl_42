@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sha512.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
+/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/16 13:01:11 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 14:33:09 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sha512.h"
 #include "ft_bswap_utils.h"
-#include <stdio.h>
 
 static t_sha512	*init(void)
 {

@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sha256.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
+/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/16 10:26:10 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 14:31:39 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_sha256.h"
 #include "ft_bswap_utils.h"
-#include <stdio.h>
 
 static t_sha256	*init(void)
 {
@@ -77,9 +76,6 @@ static void		chunk_loop(t_sha256 *d, uint32_t i)
 
 	d->msgsched = (uint32_t *)ft_memalloc(sizeof(uint32_t) * 64);
 	ft_memcpy(d->msgsched, d->msg + i * 16, sizeof(uint32_t) * 16);
-	// j = -1;
-	// while (++j < 16)
-	// 	d->msgsched[j] = ft_bswap32(d->msg[i * 16 + j]);
 	j = 16;
 	while (j < 64)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
+/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 12:57:55 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/16 13:22:22 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 14:29:29 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ typedef struct				s_ft_ssl_prg
 
 	t_ft_ssl_cmd		ssl_fnc;
 }							t_ft_ssl_prg;
-
-
 
 void						ft_ssl_md5(int argc, char **argv);
 void						ft_ssl_sha256(int argc, char **argv);

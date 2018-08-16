@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl_md_print.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
+/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/08 18:18:25 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/16 13:39:54 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 14:32:36 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 
 static void	put_digest(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 {
-	if (input->input_type == INPUT_STDIN)
-		ft_putendl(input->output);
-	else if (!d->q && input->input_type == INPUT_STRING)
+	if (!d->q && input->input_type == INPUT_STRING)
 	{
 		ft_putstr(d->name);
 		ft_putstr(" (\"");
@@ -46,9 +44,7 @@ static void	put_digest(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 
 static void	put_digest_rev(t_ft_ssl_md_data *d, t_ft_ssl_input *input)
 {
-	if (input->input_type == INPUT_STDIN)
-		ft_putendl(input->output);
-	else if (!d->q && input->input_type == INPUT_STRING)
+	if (!d->q && input->input_type == INPUT_STRING)
 	{
 		ft_putstr(input->output);
 		ft_putstr(" \"");

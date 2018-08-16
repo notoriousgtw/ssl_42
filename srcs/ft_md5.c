@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_md5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
+/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/15 18:10:00 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 14:32:01 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_md5.h"
-#include <stdio.h>
 
 static t_md5	*init(void)
 {
@@ -46,7 +45,7 @@ static void		padding(t_md5 *d, t_byte *message)
 	d->length = new_length + 8;
 }
 
-static void op(t_md5 *d, uint32_t i, uint32_t *f, uint32_t *g)
+static void		op(t_md5 *d, uint32_t i, uint32_t *f, uint32_t *g)
 {
 	if (i < 16)
 	{
@@ -70,13 +69,13 @@ static void op(t_md5 *d, uint32_t i, uint32_t *f, uint32_t *g)
 	}
 }
 
-static void	 word_loop(t_md5 *d)
+static void		word_loop(t_md5 *d)
 {
 	uint32_t	i;
 	uint32_t	f;
 	uint32_t	g;
 
-	d->words = (uint32_t *) (d->msg + d->offset);
+	d->words = (uint32_t *)(d->msg + d->offset);
 	d->offset += 64;
 	d->a = d->h0;
 	d->b = d->h1;

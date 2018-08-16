@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl_md.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
+/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/15 13:06:40 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/16 13:58:15 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/16 14:30:07 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void				parse_opts(t_ft_ssl_md_data *d, t_opts *iter)
 			d->q = true;
 		else if (!d->s && !d->r && iter->opt == 'r' && d->arg_ind++)
 			d->r = true;
-		else if (!d->s && iter->opt == 's'&& (d->arg_ind += 2))
+		else if (!d->s && iter->opt == 's' && (d->arg_ind += 2))
 		{
 			if (iter->arg == NULL)
 				ft_ssl_md_error_no_string(d);
@@ -45,7 +45,7 @@ static void				parse_opts(t_ft_ssl_md_data *d, t_opts *iter)
 	}
 }
 
-static t_ft_ssl_md_data	*init()
+static t_ft_ssl_md_data	*init(void)
 {
 	t_ft_ssl_md_data	*ret;
 
