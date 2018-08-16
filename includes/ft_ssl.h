@@ -3,74 +3,59 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ssl.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/13 12:57:55 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/13 13:26:47 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/15 16:38:00 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_SSL_H
 # define FT_SSL_H
 
-# include "ft_sha256.h"
-# include "ft_md5.h"
+# include "libft.h"
 # define SSL_BUFF_SIZE 16
 # define INPUT_STDIN 0
 # define INPUT_STRING 1
 # define INPUT_FILE 2
 # define FT_ERROR_UNKNOWN "ft_ssl: Error: "
 
-typedef char				*(*t_ft_ssl_fnc)(t_byte *message, size_t length);
-
-typedef struct				s_ft_ssl_prg
-{
-	char			*name;
-	t_ft_ssl_fnc	ssl_fnc;
-	size_t			digest_len;
-}							t_ft_ssl_prg;
+typedef int					(*t_ft_ssl_cmd)(int argc, char **argv);
 
 typedef struct				s_ft_ssl_input
 {
 	int						input_type;
 	char					*filename;
-	char					*msg;
-	size_t					msg_len;
-	char					*digest;
+	char					*input;
+	size_t					input_len;
+	char					*output;
 	struct s_ft_ssl_input	*next;
 }							t_ft_ssl_input;
+typedef struct				s_ft_ssl_prg
+{
+	char				*name;
+
+	t_ft_ssl_cmd		ssl_fnc;
+}							t_ft_ssl_prg;
+
 
 typedef struct				s_ft_ssl_data
 {
-	t_bool			p;
-	t_bool			r;
-	t_bool			q;
-	t_bool			s;
-	t_bool			f;
-	char			*arg_str;
-	size_t			arg_ind;
-	t_ft_ssl_input	*inputs;
 	t_ft_ssl_prg	*ssl_prg;
 }							t_ft_ssl_data;
 
+int							ft_ssl_sha256(int argc, char **argv);
+
 static const t_ft_ssl_prg	g_ft_ssl_program_list[3] = {
-	{"md5", &ft_md5, 32},
-	{"sha256", &ft_sha256, 64},
-	{NULL, NULL, 0}
+	{"sha256", &ft_ssl_sha256},
+	{NULL, NULL}
 };
 
-void						ft_ssl_read_stdin(t_ft_ssl_data *d);
-void						ft_ssl_read_string(t_ft_ssl_data *d);
-void						ft_ssl_read_file(t_ft_ssl_data *d, char *path);
+void						ft_ssl_error_invalid_command(char *cmd);
 
-void						print_digest(t_ft_ssl_data *d,
+void						add_input(t_ft_ssl_input **inputs,
 								t_ft_ssl_input *input);
+t_ft_ssl_input				*new_input(void);
+void						del_inputs(t_ft_ssl_input **inputs);
 
-void						ft_ssl_error_invalid_command(t_ft_ssl_data *d,
-								char *prg);
-void						ft_ssl_error_no_string(t_ft_ssl_data *d);
-void						ft_ssl_error_invalid_file(t_ft_ssl_data *d,
-								char *filename);
-
-void						ft_ssl_free_data(t_ft_ssl_data *d);
 #endif

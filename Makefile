@@ -3,22 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gwood <gwood@student.42.fr>                +#+  +:+       +#+         #
+#    By: gwood <gwood@42.us.org>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/30 14:30:20 by mhurd             #+#    #+#              #
-#    Updated: 2018/08/13 13:10:01 by gwood            ###   ########.fr        #
+#    Updated: 2018/08/15 16:43:57 by gwood            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= ft_ssl
 
-SRC		= main.c \
-		  md5.c \
-		  sha256.c \
-		  read.c \
-		  print.c \
-		  error.c \
-		  free.c
+SRC		= ft_ssl.c \
+		  ft_ssl_cmd.c \
+		  ft_ssl_error.c \
+		  ft_ssl_md.c \
+		  ft_ssl_md_read.c \
+		  ft_ssl_md_print.c \
+		  ft_ssl_md_error.c \
+		  inputs.c \
 
 OBJ		= $(addprefix $(OBJDIR),$(SRC:.c=.o))
 
@@ -33,7 +34,7 @@ SRCDIR	= ./srcs/
 INCDIR	= ./includes/
 OBJDIR	= ./objs/
 
-all: git obj libft $(NAME)
+all: obj libft $(NAME)
 
 git:
 	git submodule update --init
