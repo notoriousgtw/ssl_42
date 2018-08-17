@@ -6,7 +6,7 @@
 #    By: gwood <gwood@42.us.org>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/10/30 14:30:20 by mhurd             #+#    #+#              #
-#    Updated: 2018/08/16 12:58:49 by gwood            ###   ########.fr        #
+#    Updated: 2018/08/17 13:39:36 by gwood            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRCDIR	= ./srcs/
 INCDIR	= ./includes/
 OBJDIR	= ./objs/
 
-all: obj libft $(NAME)
+all: git obj libft $(NAME)
 
 git:
 	git submodule update --init
