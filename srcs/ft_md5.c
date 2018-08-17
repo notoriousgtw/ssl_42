@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_md5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/16 14:32:01 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/17 14:13:35 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ char			*ft_md5(t_byte *message, size_t length)
 	digest = ft_strjoinfree(digest, ft_uitoa(ft_bswap32(d->h2), 16), 3);
 	digest = ft_strjoinfree(digest, ft_uitoa(ft_bswap32(d->h3), 16), 3);
 	digest[32] = 0;
+	free(d->msg);
 	free(d);
 	return (digest);
 }

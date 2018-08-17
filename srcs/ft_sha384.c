@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sha384.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwood <gwood@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/16 14:33:11 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/17 15:00:04 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,11 @@ char			*ft_sha384(t_byte *message, size_t length)
 	i = 0;
 	while (i < d->length / 128)
 		chunk_loop(d, i++);
-	digest = ft_strnew(128);
+	digest = ft_strnew(96);
 	i = 0;
 	while (i < 6)
 		digest = ft_strjoinfree(digest, ft_ultoa(d->head[i++], 16), 3);
-	digest[128] = 0;
+	digest[96] = 0;
 	free(d->msg);
 	free(d);
 	return (digest);

@@ -6,7 +6,7 @@
 /*   By: gwood <gwood@42.us.org>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/24 16:03:15 by gwood             #+#    #+#             */
-/*   Updated: 2018/08/16 10:27:49 by gwood            ###   ########.fr       */
+/*   Updated: 2018/08/17 15:00:11 by gwood            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,11 @@ char			*ft_sha224(t_byte *message, size_t length)
 	i = 0;
 	while (i < d->length / 64)
 		chunk_loop(d, i++);
-	digest = ft_strnew(64);
+	digest = ft_strnew(56);
 	i = 0;
 	while (i < 7)
 		digest = ft_strjoinfree(digest, ft_uitoa(d->head[i++], 16), 3);
-	digest[64] = 0;
+	digest[56] = 0;
 	free(d->msg);
 	free(d);
 	return (digest);
