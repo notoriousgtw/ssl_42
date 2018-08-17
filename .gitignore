@@ -8,4 +8,3 @@ includes/sha512.h
 srcs/sha512.c
 md5_ref.c
 md5
-tests/test.sh
